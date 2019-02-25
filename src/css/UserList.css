@@ -1,0 +1,18 @@
+.App {
+  text-align: center;
+}
+
+.list-user{
+  text-align: center;
+}
+
+select{
+  margin: 0px 10px 10px 10px;
+  width: 250px;
+}
+
+.no-scroll::-webkit-scrollbar {display:none;}
+.no-scroll::-moz-scrollbar {display:none;}
+.no-scroll::-o-scrollbar {display:none;}
+.no-scroll::-google-ms-scrollbar {display:none;}
+.no-scroll::-khtml-scrollbar {display:none;}

@@ -1,0 +1,11 @@
+#root{
+  display: flex;
+}
+.content{
+  border-style: solid;
+  border-color: #eee;
+  border-width: 2px;
+  height: 100%;
+  flex-grow: 0;
+  display:inline-block;
+}
