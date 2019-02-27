@@ -7,7 +7,8 @@ class App extends Component {
     error: null,
     isLoaded: true,
     users: {},
-    userSelected: null
+    userSelected: null,
+    message: null
   }
 
   componentDidMount(){
@@ -33,6 +34,38 @@ class App extends Component {
     this.setState({ userSelected: userKey });
   }
 
+  updateUser = (key, updatedUser) => {
+    const users = {...this.state.users };
+    users[key] = updatedUser;
+    this.setState({ users });
+  }
+
+  updateUserDB = (event) => {
+    event.preventDefault();
+    const users = {...this.state.users };
+    const userSelected = this.state.userSelected;
+    const idUser = users[userSelected].id;
+    { console.log(JSON.stringify(users[userSelected])) }
+    if (idUser) {
+      fetch('https://localhost:5001/api/user/'+idUser, {
+        method: 'PUT',
+        body: JSON.stringify(users[userSelected]),
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      })
+      .then((res => res.json()))
+      .then(
+        (result) => {
+          this.setState({
+            userSelected: null,
+            message: "User updated"
+          });
+        }
+      )
+    }
+  }
+
   render() {
     const { error, isLoaded, users, userSelected } = this.state;
     if (error) {
@@ -43,7 +76,9 @@ class App extends Component {
       return (
         <div id="root">
           <UserList users={users} selectUser={this.selectUser} />
-          <UserForm users={users} userSelected={userSelected}/>
+          <UserForm users={users} userSelected={userSelected} 
+          updateUser={this.updateUser} 
+          updateUserDB={this.updateUserDB}/>
         </div>
       );
     }
