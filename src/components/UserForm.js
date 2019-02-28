@@ -52,9 +52,9 @@ class UserForm extends Component {
               className='form-control'/>
             </div>
             <button 
-              className="btn btn-default" 
+              className="btn btn-success" 
               onClick={this.props.updateUserDB}>
-              Actualizar
+              Update
             </button>&nbsp;&nbsp;
             <button 
               className="btn btn-danger" 
