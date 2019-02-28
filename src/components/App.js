@@ -78,7 +78,8 @@ class App extends Component {
           'Content-Type': 'application/json',
         }
       })
-      .then((res => res.json()))
+      .catch(err => console.error(err))
+      .then(text => console.log(text))
       .then(
         (result) => {
           this.setState({
@@ -133,7 +134,8 @@ class App extends Component {
           <UserList users={users}
           userSelected={userSelected} 
           selectUser={this.selectUser} />
-          <UserForm users={users} userSelected={userSelected} 
+          <UserForm users={users} 
+          userSelected={userSelected} 
           addUser={this.addUser} 
           updateUser={this.updateUser} 
           updateUserDB={this.updateUserDB}
