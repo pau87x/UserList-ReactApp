@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import UserList from './UserList';
 import UserForm from './UserForm';
 
+
 class App extends Component {
   state = {
     error: null,
@@ -12,7 +13,7 @@ class App extends Component {
   }
 
   componentDidMount(){
-    fetch('https://localhost:5001/api/User')
+    fetch('https://localhost:5001/api/user')
     .then(res => res.json())
     .then(
       (result) => {
@@ -30,6 +31,29 @@ class App extends Component {
     )
   }
 
+  addUser = (user) => {
+    if (user) {
+      fetch('https://localhost:5001/api/user', {
+        method: 'POST',
+        body: JSON.stringify(user),
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      })
+      .then((res => res.json()))
+      .then(
+        (result) => {
+          const users = {...this.state.users };
+          users[`user${Date.now()}`] = user;
+          this.setState({ 
+            users,
+            message: "User created"
+          });
+        }
+      )
+    }
+  }
+
   selectUser = (userKey) => {
     this.setState({ userSelected: userKey });
   }
@@ -45,7 +69,7 @@ class App extends Component {
     const users = {...this.state.users };
     const userSelected = this.state.userSelected;
     const idUser = users[userSelected].id;
-    { console.log(JSON.stringify(users[userSelected])) }
+
     if (idUser) {
       fetch('https://localhost:5001/api/user/'+idUser, {
         method: 'PUT',
@@ -75,8 +99,11 @@ class App extends Component {
     } else {
       return (
         <div id="root">
-          <UserList users={users} selectUser={this.selectUser} />
+          <UserList users={users}
+          userSelected={userSelected} 
+          selectUser={this.selectUser} />
           <UserForm users={users} userSelected={userSelected} 
+          addUser={this.addUser} 
           updateUser={this.updateUser} 
           updateUserDB={this.updateUserDB}/>
         </div>

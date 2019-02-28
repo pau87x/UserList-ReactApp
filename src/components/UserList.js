@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import '../css/UserList.css';
 import User from './User';
+import AddUserButton from './AddUserButton';
 
 class UserList extends Component {
-
   render() {
     const users = this.props.users;
     return (
@@ -14,9 +14,16 @@ class UserList extends Component {
         <hr/>
         <select name="users" multiple size="10" className="no-scroll">
           { Object.keys(users).map(key => (
-            <User key={key} index={key} details={users[key]} selectUser={this.props.selectUser}/>
+            <User 
+              key={key} 
+              index={key} 
+              details={users[key]} 
+              selectUser={this.props.selectUser}/>
           ))}
         </select>
+        <AddUserButton 
+          userSelected={this.props.userSelected} 
+          selectUser={this.props.selectUser}/>
       </div>
     );
   }

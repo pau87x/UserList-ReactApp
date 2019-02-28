@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import '../css/UserForm.css';
+import NewUserForm from './NewUserForm';
 
 class UserForm extends Component {
   handleChange = (event) => {
@@ -13,7 +14,7 @@ class UserForm extends Component {
 
   render() {
     if (this.props.userSelected  === null) {
-      return <div>Select a user</div>;
+      return <NewUserForm addUser={this.props.addUser} />;
     } else {
       const selected = this.props.userSelected;
       const { id, name, username, email } = this.props.users[selected];
