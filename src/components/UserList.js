@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 import '../css/UserList.css';
 import User from './User';
-import AddUserButton from './AddUserButton';
 
 class UserList extends Component {
+  handleClick = () => {
+    this.props.selectUser(null)
+  }
+
   render() {
     const users = this.props.users;
     return (
@@ -20,10 +23,12 @@ class UserList extends Component {
               details={users[key]} 
               selectUser={this.props.selectUser}/>
           ))}
-        </select>
-        <AddUserButton 
-          userSelected={this.props.userSelected} 
-          selectUser={this.props.selectUser}/>
+        </select><br/>
+        <button className="btn btn-primary" 
+          onClick={this.handleClick}>
+          New User
+        </button>
+        <br/>
       </div>
     );
   }

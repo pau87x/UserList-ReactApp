@@ -13,12 +13,11 @@ class UserForm extends Component {
   }
 
   render() {
-    if (this.props.userSelected  === null) {
+    const selected = this.props.userSelected;
+    if (selected  === null) {
       return <NewUserForm addUser={this.props.addUser} />;
     } else {
-      const selected = this.props.userSelected;
       const { id, name, username, email } = this.props.users[selected];
-
       return (
         <div className="content">
           <h3>User Data</h3>
@@ -56,6 +55,11 @@ class UserForm extends Component {
               className="btn btn-default" 
               onClick={this.props.updateUserDB}>
               Actualizar
+            </button>&nbsp;&nbsp;
+            <button 
+              className="btn btn-danger" 
+              onClick={this.props.deleteUser}>
+              Delete
             </button>
             <br/>
           </form>

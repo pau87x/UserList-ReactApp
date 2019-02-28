@@ -90,6 +90,37 @@ class App extends Component {
     }
   }
 
+  deleteUser = () => {
+    const users = {...this.state.users };
+    const userSelected = this.state.userSelected;
+    const idUser = users[userSelected].id;
+
+    this.setState({
+      isLoaded: false,
+    });
+
+    fetch('https://localhost:5001/api/user/'+idUser, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      }
+    })
+    .catch(err => console.error(err))
+    .then(text => console.log(text))
+    .then(
+      (result) => {
+        let usersTemp = Object.assign({}, users);
+        delete usersTemp[userSelected];
+        this.setState({
+          userSelected: null,
+          users: usersTemp,
+          message: "User deleted",
+          isLoaded: true
+        });
+      }
+    )
+  }
+
   render() {
     const { error, isLoaded, users, userSelected } = this.state;
     if (error) {
@@ -105,7 +136,8 @@ class App extends Component {
           <UserForm users={users} userSelected={userSelected} 
           addUser={this.addUser} 
           updateUser={this.updateUser} 
-          updateUserDB={this.updateUserDB}/>
+          updateUserDB={this.updateUserDB}
+          deleteUser={this.deleteUser} />
         </div>
       );
     }
